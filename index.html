@@ -18,7 +18,7 @@
 <title>Приглашение на свадьбу</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Rouge+Script&family=Playfair+Display:wght@400;500&family=Parisienne&family=Marck+Script&family=Old+Standard+TT:ital@0;1&family=PT+Mono&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Tenor+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Rouge+Script&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Parisienne&family=Marck+Script&family=Old+Standard+TT:ital@0;1&family=PT+Mono&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Tenor+Sans&display=swap" rel="stylesheet">
 <style>
 :root{
   /* картинки цветов (Пьер-Жозеф Редуте, «Les Roses», 1817–1824, общественное достояние) */
@@ -110,6 +110,7 @@ body.menu-open .drawer-bg{opacity:1;visibility:visible}
 .arch .t-date i{font-style:normal;opacity:.6;margin:0 .6cqw}
 .arch .t-place{font-family:"Old Standard TT",serif;font-size:2.4cqw;line-height:1.7;color:#8d4a4c}
 .arch .t-save{font-family:var(--script);font-size:6.4cqw;color:#4e6b40}
+.arch .t-save.guest{font-family:"Playfair Display",serif;font-style:italic;font-weight:400;font-size:5.4cqw;line-height:1.15}
 .arch .seq{opacity:0;transform:translateY(1.6cqw);filter:blur(4px);transition:opacity 1.3s ease,transform 1.3s ease,filter 1.3s ease}
 .arch.play .seq{opacity:1;transform:none;filter:none}
 .arch .down{position:absolute;left:50%;bottom:3.2%;transform:translateX(-50%);width:34px;height:34px;border-radius:50%;border:1px solid rgba(110,80,60,.4);display:grid;place-items:center;color:#6f5446;background:rgba(255,248,240,.55);backdrop-filter:blur(3px);text-decoration:none;opacity:0;transition:opacity 1s}
@@ -679,10 +680,9 @@ const WEDDING = {
   if (guest) {
     const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
     $("#dearTitle").textContent = `${greet} ${guest}!`;
-    const eg = $("#envGuest"); eg.hidden = false; eg.innerHTML = `<b>${esc(guest)},</b>вам письмо`;
     const rn = $("#rName"); if (rn) rn.value = guest;
     const mn = $("#mName"); if (mn) mn.value = guest;
-    $("#archSave").textContent = guest;
+    $("#archSave").textContent = guest; $("#archSave").classList.add("guest");
     document.title = `${guest} — приглашение на свадьбу ${W.groom} и ${W.bride}`;
   }
   $$("[data-f]").forEach(el => { const v = F[el.dataset.f]; if (v == null || typeof v === "object") return; /</.test(v) ? el.innerHTML = v : el.textContent = v; });
