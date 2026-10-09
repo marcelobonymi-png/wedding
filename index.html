@@ -381,6 +381,13 @@ footer .label{font-family:"Old Standard TT",serif;color:var(--green-t);letter-sp
 #envelope[data-style="vintage"] .hint{bottom:auto;top:calc(54% + min(22vw,105px) + 80px);color:var(--e-text);text-shadow:0 0 6px rgba(255,245,235,.9);z-index:7}
 #envelope.open .vint .seal{transform:translate(-50%,-50%) scale(1.25) rotate(-8deg);opacity:0}
 #envelope.open .vint{transform:scale(1.3) translateY(-4%);opacity:0}
+/* «До свадьбы осталось» и календарь — прямоугольные рамки вместо арки */
+.count .v-arch{border-radius:6px;padding-top:40px}
+.count .v-rose-l{top:-70px;left:-54px;width:130px;height:130px}
+.count .v-rose-r{top:-64px;right:-54px;width:124px;height:124px}
+.count .v-arch::before{border-radius:3px}
+.calendar{border-radius:6px;padding-top:24px}
+.calendar::before{border-radius:3px}
 </style>
 </head>
 <body class="locked">
