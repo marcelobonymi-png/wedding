@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Список гостей — Борис & Айша</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Old+Standard+TT:wght@400;700&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f4e2d4;--card:#fffaf3;--ink:#45312e;--muted:#8a736c;--rose:#9a4b50;--rose-l:#f3dcd6;--green:#4e6b40;--green-l:#e3ecd9;--gold:#b8925a;--line:#e6cfbd;--red:#b0444c;--red-l:#f6dcdc;--wait:#f1e6cf}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Old Standard TT",Georgia,serif;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:22px 14px 80px}
+  header{text-align:center;margin-bottom:16px}
+  h1{font:400 50px/1.05 "Great Vibes",cursive;color:var(--rose);margin:0}
+  .sub{font-family:"Marck Script",cursive;font-size:19px;color:var(--green);margin-top:4px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 6px 18px rgba(120,80,50,.07)}
+  .card h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 12px;font-weight:400}
+  label{font-size:12.5px;color:var(--muted);display:block;margin:0 0 4px}
+  input,select,textarea{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:9px;padding:10px 12px;width:100%}
+  input:focus,select:focus,textarea:focus{outline:2px solid #ecd1c0;border-color:var(--gold)}
+  textarea{min-height:84px;resize:vertical}
+  .btn{font:inherit;font-size:14px;border:0;border-radius:22px;padding:10px 16px;cursor:pointer;background:var(--rose);color:#fff;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:6px;justify-content:center}
+  .btn:hover{filter:brightness(1.07)} .btn:disabled{opacity:.55;cursor:default}
+  .btn.light{background:#fff;color:var(--rose);border:1px solid var(--rose)}
+  .btn.wa{background:#21a456} .btn.tg{background:#2a9fd6} .btn.ghost{background:none;color:var(--muted);padding:6px 8px}
+  .btn.sm{padding:7px 12px;font-size:13px}
+  .grid{display:grid;gap:10px}
+  .g-add{grid-template-columns:1.6fr 1fr 1.2fr .9fr}
+  .seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
+  .seg button{flex:1;border:0;background:none;padding:10px 6px;font:inherit;font-size:14px;cursor:pointer;color:var(--muted)}
+  .seg button.on{background:var(--rose);color:#fff}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.5}
+  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 6px;text-align:center}
+  .stat b{display:block;font-size:28px;line-height:1.1;color:var(--rose);font-weight:400}
+  .stat span{font-size:11.5px;color:var(--muted);letter-spacing:.04em}
+  .stat.ok b{color:var(--green)} .stat.no b{color:var(--red)}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:20px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer;color:var(--ink)}
+  .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .search{max-width:200px}
+  .guest{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:#fff;position:relative}
+  .guest.ok{border-left:5px solid #5d8a4c} .guest.no{border-left:5px solid var(--red)} .guest.wait{border-left:5px solid #d8c08f}
+  .g-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+  .g-name{font-size:19px;line-height:1.25}
+  .g-name small{font-family:"Marck Script",cursive;color:var(--green);font-size:15px;margin-left:4px}
+  .g-meta{font-size:13px;color:var(--muted);margin-top:3px}
+  .pill{font-size:12.5px;border-radius:20px;padding:4px 10px;white-space:nowrap;display:inline-flex;gap:5px;align-items:center}
+  .pill.ok{background:var(--green-l);color:#3d5a31} .pill.no{background:var(--red-l);color:var(--red)} .pill.wait{background:var(--wait);color:#8a6a2c} .pill.sent{background:#eef2f6;color:#4e6478}
+  .g-ans{margin-top:8px;font-size:13.5px;background:#fbf4ee;border-radius:9px;padding:8px 10px;white-space:pre-line;line-height:1.5}
+  .g-act{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .del{position:absolute;right:8px;bottom:8px}
+  .empty{text-align:center;color:var(--muted);padding:18px 0}
+  details summary{cursor:pointer;color:var(--rose);font-size:14px}
+  .banner{background:#fff6e6;border:1px solid #edd3a6;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.5;margin-bottom:14px}
+  .banner b{color:var(--rose)}
+  .demo{background:#e9f1fb;border-color:#bcd2ea}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .wish{border-top:1px solid var(--line);padding:8px 0;font-size:14px} .wish:first-child{border-top:0}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,120px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:24px;transition:.3s;font-size:14px;z-index:9}
+  .toast.show{transform:translate(-50%,0)}
+  .spin{display:inline-block;width:12px;height:12px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  @media (max-width:640px){.g-add{grid-template-columns:1fr 1fr}.stats{grid-template-columns:repeat(3,1fr)}.stats .stat:nth-child(n+4){grid-column:span 1}.row2{grid-template-columns:1fr}.search{max-width:none;flex-basis:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Список гостей</h1>
+    <div class="sub">Борис &amp; Айша · 27 октября 2026</div>
+  </header>
+
+  <div id="banner"></div>
+
+  <div class="stats" id="stats"></div>
+  <div style="height:14px"></div>
+
+  <!-- добавить гостя -->
+  <div class="card">
+    <h2>Добавить гостя</h2>
+    <div class="grid g-add">
+      <div><label for="fName">Как обратиться</label><input id="fName" placeholder="Михаил Михайлович"></div>
+      <div><label for="fR">Обращение</label><select id="fR"><option value="m">Дорогой</option><option value="f">Дорогая</option><option value="p">Дорогие</option></select></div>
+      <div><label for="fPhone">Телефон</label><input id="fPhone" type="tel" placeholder="+7 916 123-45-67"></div>
+      <div><label>Куда писать</label><div class="seg" id="fMsg"><button type="button" data-v="wa" class="on">WhatsApp</button><button type="button" data-v="tg">Telegram</button></div></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+      <button class="btn" id="addOne">+ Добавить</button>
+    </div>
+    <details style="margin-top:12px">
+      <summary>Добавить сразу списком</summary>
+      <textarea id="bulk" style="margin-top:10px" placeholder="Каждый гость с новой строки:  Имя; телефон; wa или tg&#10;Михаил Михайлович; +7 916 123-45-67; wa&#10;Анна Петровна; 89031234567; tg&#10;Сергей и Ольга; +7 925 000-11-22"></textarea>
+      <div class="hint">Обращение (Дорогой / Дорогая / Дорогие) определяется по имени автоматически — потом можно поправить. Если мессенджер не указан — WhatsApp.</div>
+      <button class="btn light" id="addBulk" style="margin-top:8px">Добавить списком</button>
+    </details>
+  </div>
+
+  <!-- список -->
+  <div class="card">
+    <div class="toolbar">
+      <div class="chips" id="chips"></div>
+      <input class="search" id="q" placeholder="Поиск…">
+      <button class="btn ghost" id="refresh" title="Обновить">↻ Обновить</button>
+    </div>
+    <div id="list"></div>
+  </div>
+
+  <div class="card" id="extraCard" hidden>
+    <h2>Ответы и пожелания без личной ссылки</h2>
+    <div id="extra"></div>
+  </div>
+
+  <!-- настройки -->
+  <div class="card">
+    <details id="setDet">
+      <summary>Настройки</summary>
+      <div style="margin-top:12px" class="grid">
+        <div><label for="sApi">Адрес Google-скрипта (заканчивается на /exec)</label><input id="sApi" placeholder="https://script.google.com/macros/s/…/exec"></div>
+        <div class="row2">
+          <div><label for="sKey">Пароль админки (как в скрипте)</label><input id="sKey" type="password" autocomplete="off"></div>
+          <div><label for="sSite">Адрес приглашения</label><input id="sSite"></div>
+        </div>
+        <div><label for="sTpl">Текст приглашения в мессенджере</label><textarea id="sTpl" style="min-height:120px"></textarea>
+          <div class="hint">{обращение}, {имя} и {ссылка} подставятся сами для каждого гостя.</div></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="saveSet">Сохранить</button><button class="btn light" id="csv">Скачать список (Excel / CSV)</button></div>
+      </div>
+    </details>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const LS = "wedding-admin-v1";
+const R = { m: "Дорогой", f: "Дорогая", p: "Дорогие" };
+const DEF_TPL = "{обращение} {имя}! 🤍\nС радостью приглашаем вас на нашу свадьбу — 27 октября 2026, ЗАГС ВДНХ, 12:20.\nВаше личное приглашение: {ссылка}\n\nБорис и Айша";
+let cfg = { api: "https://script.google.com/macros/s/AKfycbzjnyrd8KU9PJ_Qn3lX1TIj89X6puTeSOrQjYLA1iq6DJOEsgsKocMsJgNkjvtUVSng/exec", key: "", site: "https://boris-aisha.ru/", tpl: DEF_TPL };
+try { Object.assign(cfg, JSON.parse(localStorage.getItem(LS) || "{}")); } catch (e) {}
+const saveCfg = () => { try { localStorage.setItem(LS, JSON.stringify(cfg)); } catch (e) {} };
+let data = { guests: [], answers: [] }, demo = false, filter = "all", msgType = "wa", busy = false;
+
+// ---------- утилиты ----------
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const uid = () => Math.random().toString(36).slice(2, 7);
+const guessR = n => /\sи\s|,|семья|&/i.test(n) ? "p" : /(вна|чна|а|я)$/i.test(n.trim().split(/\s+/).pop()) ? "f" : "m";
+const normPhone = p => { let d = String(p || "").replace(/\D/g, ""); if (d.length === 11 && d[0] === "8") d = "7" + d.slice(1); if (d.length === 10) d = "7" + d; return d; };
+const fmtPhone = d => d && d.length === 11 ? `+${d[0]} ${d.slice(1,4)} ${d.slice(4,7)}-${d.slice(7,9)}-${d.slice(9)}` : (d ? "+" + d : "");
+const link = g => { const u = new URL(cfg.site || "https://boris-aisha.ru/"); u.searchParams.set("to", g.name); u.searchParams.set("r", g.r); u.searchParams.set("g", g.id); return decodeURI(u.toString()); };
+const text = g => (cfg.tpl || DEF_TPL).replaceAll("{обращение}", R[g.r] || "Дорогие").replaceAll("{имя}", g.name).replaceAll("{ссылка}", link(g));
+const when = iso => { if (!iso) return ""; const d = new Date(iso); return d.toLocaleDateString("ru-RU", { day: "numeric", month: "short" }) + " " + d.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" }); };
+function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("show"), 2000); }
+function copy(t, ok) { (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast(ok)).catch(() => prompt("Скопируйте:", t)); }
+
+// ---------- связь с Google Таблицей ----------
+async function api(body) {
+  if (demo) return demoApi(body);
+  const r = await fetch(cfg.api, { method: "POST", body: JSON.stringify({ ...body, key: cfg.key }) });
+  const j = await r.json(); if (!j.ok) throw new Error(j.error || "error"); return j;
+}
+async function load(silent) {
+  if (demo) return render();
+  if (!cfg.api || !cfg.key) { render(); return; }
+  if (!silent) $("#refresh").innerHTML = '<span class="spin"></span>';
+  try {
+    const r = await fetch(`${cfg.api}?key=${encodeURIComponent(cfg.key)}&t=${Date.now()}`);
+    const j = await r.json();
+    if (!j.ok) { banner(j.error === "key" ? "Неверный пароль админки. Проверьте его в «Настройках» — он должен совпадать с ADMIN_KEY в скрипте." : "Ошибка таблицы."); }
+    else { data = j; banner(""); }
+  } catch (e) { banner("Не удалось связаться с Google Таблицей. Проверьте адрес скрипта в «Настройках» и интернет."); }
+  $("#refresh").textContent = "↻ Обновить"; render();
+}
+function banner(msg) {
+  if (!cfg.api || !cfg.key) {
+    $("#banner").innerHTML = `<div class="banner"><b>Подключите Google Таблицу</b> — туда сохраняются гости и сами приходят их ответы (галочки ✅).<br>Откройте «Настройки» внизу, вставьте адрес скрипта и пароль. ${demo ? "" : '<br><button class="btn sm light" style="margin-top:8px" onclick="startDemo()">Посмотреть, как это выглядит (пример)</button>'}</div>` + (demo ? '<div class="banner demo"><b>Режим примера.</b> Это вымышленные гости, ничего не сохраняется. <button class="btn sm light" onclick="location.reload()">Выйти</button></div>' : "");
+    return;
+  }
+  $("#banner").innerHTML = msg ? `<div class="banner">${esc(msg)}</div>` : "";
+}
+
+// ---------- статусы ----------
+function statusOf(g) {
+  const a = data.answers.filter(x => x.type === "rsvp" && x.id === g.id).sort((x, y) => x.time < y.time ? 1 : -1)[0];
+  if (a) { const no = /не смогу/i.test(a.come); return { k: no ? "no" : "ok", a, people: no ? 0 : (/пар/i.test(a.come) || g.r === "p" ? 2 : 1) }; }
+  return { k: g.sent ? "sent" : "new" };
+}
+
+// ---------- отрисовка ----------
+function render() {
+  if (!cfg.api || !cfg.key) banner("");
+  const gs = data.guests.map(g => ({ ...g, st: statusOf(g) }));
+  const answered = gs.filter(g => g.st.a), coming = gs.filter(g => g.st.k === "ok");
+  const people = coming.reduce((s, g) => s + g.st.people, 0);
+  $("#stats").innerHTML = [
+    ["Гостей", gs.length, ""], ["Отправлено", gs.filter(g => g.sent).length, ""], ["Ответили", answered.length, ""],
+    ["Придут, чел.", people, "ok"], ["Не смогут", gs.filter(g => g.st.k === "no").length, "no"]
+  ].map(([t, n, c]) => `<div class="stat ${c}"><b>${n}</b><span>${t}</span></div>`).join("");
+
+  const F = { all: ["Все", () => true], wait: ["Ждём ответа", g => !g.st.a], ok: ["Придут", g => g.st.k === "ok"], no: ["Не смогут", g => g.st.k === "no"], unsent: ["Не отправлено", g => !g.sent] };
+  $("#chips").innerHTML = Object.entries(F).map(([k, [t, fn]]) => `<button class="chip ${filter === k ? "on" : ""}" data-f="${k}">${t} · ${gs.filter(fn).length}</button>`).join("");
+  const q = $("#q").value.trim().toLowerCase();
+  const list = gs.filter(F[filter][1]).filter(g => !q || (g.name + " " + g.phone).toLowerCase().includes(q));
+
+  $("#list").innerHTML = list.length ? list.map(g => {
+    const st = g.st, P = { ok: `<span class="pill ok">✅ ${esc(st.a?.come)}</span>`, no: `<span class="pill no">❌ Не сможет</span>`, sent: `<span class="pill sent">✉️ Отправлено ${when(g.sent)}</span>`, new: `<span class="pill wait">⏳ Не отправлено</span>` }[st.k];
+    const waitAfterSent = st.k === "sent" ? `<span class="pill wait">⏳ Ждём ответа</span>` : "";
+    const ans = st.a ? `<div class="g-ans">${esc([st.a.phone && "Телефон: " + st.a.phone, st.a.answers].filter(Boolean).join("\n"))}${st.a.answers || st.a.phone ? "" : "Без доп. ответов"}<div style="color:var(--muted);font-size:12px;margin-top:4px">ответил(а) ${when(st.a.time)}</div></div>` : "";
+    const wishes = data.answers.filter(x => x.type === "wish" && x.id === g.id).map(w => `<div class="g-ans">💬 ${esc(w.message)}</div>`).join("");
+    const m = g.messenger === "tg" ? "tg" : "wa";
+    return `<div class="guest ${st.k === "ok" ? "ok" : st.k === "no" ? "no" : "wait"}">
+      <div class="g-row"><div><div class="g-name">${esc(g.name)}<small>${R[g.r] || ""}</small></div>
+        <div class="g-meta">${esc(fmtPhone(g.phone)) || "без телефона"} · ${m === "tg" ? "Telegram" : "WhatsApp"}</div></div>
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">${P}${waitAfterSent}</div></div>
+      ${ans}${wishes}
+      <div class="g-act">
+        <button class="btn sm ${m}" data-send="${g.id}">${m === "tg" ? "Отправить в Telegram" : "Отправить в WhatsApp"}</button>
+        <button class="btn sm light" data-copy="${g.id}">Скопировать ссылку</button>
+        <a class="btn sm light" target="_blank" href="${esc(link(g))}">Открыть</a>
+      </div>
+      <button class="btn ghost sm del" data-del="${g.id}" title="Удалить">✕</button>
+    </div>`;
+  }).join("") : `<div class="empty">${gs.length ? "Никого по этому фильтру" : "Пока никого. Добавьте первого гостя выше 👆"}</div>`;
+
+  const ids = new Set(data.guests.map(g => g.id));
+  const extra = data.answers.filter(a => !ids.has(a.id)).sort((x, y) => x.time < y.time ? 1 : -1);
+  $("#extraCard").hidden = !extra.length;
+  $("#extra").innerHTML = extra.map(a => `<div class="wish"><b>${esc(a.name)}</b> — ${a.type === "wish" ? "💬 " + esc(a.message) : esc(a.come) + (a.answers ? "<br><span style='color:var(--muted);white-space:pre-line'>" + esc(a.answers) + "</span>" : "")}<div style="color:var(--muted);font-size:12px">${when(a.time)}</div></div>`).join("");
+}
+
+// ---------- действия ----------
+async function addGuests(arr) {
+  if (!arr.length) return;
+  if (!demo && (!cfg.api || !cfg.key)) { toast("Сначала подключите таблицу в «Настройках»"); $("#setDet").open = true; return; }
+  try { await api({ action: "add", guests: arr }); data.guests.push(...arr.map(g => ({ ...g, created: new Date().toISOString(), sent: "" }))); render(); toast(arr.length > 1 ? `Добавлено гостей: ${arr.length}` : "Гость добавлен"); }
+  catch (e) { toast("Не получилось сохранить — проверьте настройки"); }
+}
+$("#addOne").onclick = () => {
+  const name = $("#fName").value.trim(); if (!name) return $("#fName").focus();
+  addGuests([{ id: uid(), name, r: $("#fR").value, phone: normPhone($("#fPhone").value), messenger: msgType }]);
+  $("#fName").value = ""; $("#fPhone").value = ""; $("#fName").focus();
+};
+$("#fName").addEventListener("input", e => { if (e.target.value.trim()) $("#fR").value = guessR(e.target.value); });
+$("#fName").addEventListener("keydown", e => { if (e.key === "Enter") $("#fPhone").focus(); });
+$("#fPhone").addEventListener("keydown", e => { if (e.key === "Enter") $("#addOne").click(); });
+$("#fMsg").onclick = e => { const b = e.target.closest("button"); if (!b) return; msgType = b.dataset.v; $$("#fMsg button").forEach(x => x.classList.toggle("on", x === b)); };
+$("#addBulk").onclick = () => {
+  const arr = $("#bulk").value.split("\n").map(l => l.split(/[;\t]/).map(s => s.trim())).filter(p => p[0]).map(([name, phone, m]) => ({ id: uid(), name, r: guessR(name), phone: normPhone(phone), messenger: /tg|телег|тг/i.test(m || "") ? "tg" : "wa" }));
+  addGuests(arr); $("#bulk").value = "";
+};
+$("#chips").onclick = e => { const b = e.target.closest("[data-f]"); if (b) { filter = b.dataset.f; render(); } };
+$("#q").oninput = render;
+$("#refresh").onclick = () => load();
+$("#list").onclick = async e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const g = data.guests.find(x => x.id === (b.dataset.send || b.dataset.copy || b.dataset.del)); if (!g) return;
+  if (b.dataset.copy) return copy(link(g), "Ссылка скопирована");
+  if (b.dataset.del) { if (!confirm(`Удалить ${g.name} из списка?`)) return; try { await api({ action: "delete", id: g.id }); data.guests = data.guests.filter(x => x !== g); render(); } catch (err) { toast("Не получилось удалить"); } return; }
+  if (b.dataset.send) {
+    const t = text(g);
+    if (g.messenger === "tg") { copy(t, "Текст скопирован — вставьте в чат и отправьте"); window.open(g.phone ? `https://t.me/+${g.phone}` : `https://t.me/share/url?url=${encodeURIComponent(link(g))}`, "_blank"); }
+    else window.open(`https://wa.me/${g.phone || ""}?text=${encodeURIComponent(t)}`, "_blank");
+    g.sent = new Date().toISOString(); render();
+    api({ action: "sent", id: g.id }).catch(() => {});
+  }
+};
+
+// ---------- настройки ----------
+$("#sApi").value = cfg.api; $("#sKey").value = cfg.key; $("#sSite").value = cfg.site; $("#sTpl").value = cfg.tpl;
+$("#saveSet").onclick = () => { cfg.api = $("#sApi").value.trim(); cfg.key = $("#sKey").value.trim(); cfg.site = $("#sSite").value.trim() || "https://boris-aisha.ru/"; cfg.tpl = $("#sTpl").value || DEF_TPL; saveCfg(); toast("Сохранено"); demo = false; load(); };
+$("#csv").onclick = () => {
+  const rows = [["Имя", "Обращение", "Телефон", "Мессенджер", "Ссылка", "Отправлено", "Ответ", "Подробности"]].concat(data.guests.map(g => { const s = statusOf(g); return [g.name, R[g.r], fmtPhone(g.phone), g.messenger === "tg" ? "Telegram" : "WhatsApp", link(g), g.sent ? when(g.sent) : "", s.a ? s.a.come : "", s.a ? s.a.answers : ""]; }));
+  const csv = "﻿" + rows.map(r => r.map(v => `"${String(v ?? "").replace(/"/g, '""')}"`).join(";")).join("\n");
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); a.download = "gosti.csv"; a.click();
+};
+
+// ---------- пример ----------
+function startDemo() {
+  demo = true; const now = Date.now(), iso = m => new Date(now - m * 60000).toISOString();
+  data = { guests: [
+    { id: "a1", name: "Михаил Михайлович", r: "m", phone: "79161234567", messenger: "wa", sent: iso(300) },
+    { id: "a2", name: "Анна Петровна", r: "f", phone: "79031234567", messenger: "tg", sent: iso(280) },
+    { id: "a3", name: "Сергей и Ольга", r: "p", phone: "79250001122", messenger: "wa", sent: iso(200) },
+    { id: "a4", name: "Тётя Галя", r: "f", phone: "79104445566", messenger: "wa", sent: "" },
+    { id: "a5", name: "Артём Викторович", r: "m", phone: "79998887766", messenger: "tg", sent: iso(60) }],
+    answers: [
+    { time: iso(120), type: "rsvp", id: "a1", name: "Михаил Михайлович", come: "Приду с парой", phone: "+7 916 123-45-67", answers: "Потребуется ли вам трансфер? Только до торжества\nКакие напитки вы предпочитаете? Красное вино, Шампанское" },
+    { time: iso(90), type: "wish", id: "a1", name: "Михаил Михайлович", message: "Счастья вам, молодые! Обязательно будем 🥂" },
+    { time: iso(40), type: "rsvp", id: "a2", name: "Анна Петровна", come: "Не смогу", phone: "", answers: "" },
+    { time: iso(20), type: "rsvp", id: "a3", name: "Сергей и Ольга", come: "Да, приду", phone: "", answers: "Есть ли предпочтения по еде? Вегетарианец" }] };
+  render();
+}
+async function demoApi(b) { return { ok: true }; }
+window.startDemo = startDemo;
+
+load(); setInterval(() => { if (!document.hidden && !demo) load(true); }, 30000);
+</script>
+</body>
+</html>
