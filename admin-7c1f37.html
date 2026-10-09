@@ -15,6 +15,7 @@
   h1{font:400 50px/1.05 "Great Vibes",cursive;color:var(--rose);margin:0}
   .sub{font-family:"Marck Script",cursive;font-size:19px;color:var(--green);margin-top:4px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 6px 18px rgba(120,80,50,.07)}
+  .login{border:2px solid var(--rose)}
   .card h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 12px;font-weight:400}
   label{font-size:12.5px;color:var(--muted);display:block;margin:0 0 4px}
   input,select,textarea{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:9px;padding:10px 12px;width:100%}
@@ -167,14 +168,21 @@ async function load(silent) {
   try {
     const r = await fetch(`${cfg.api}?key=${encodeURIComponent(cfg.key)}&t=${Date.now()}`);
     const j = await r.json();
-    if (!j.ok) { banner(j.error === "key" ? "Неверный пароль админки. Проверьте его в «Настройках» — он должен совпадать с ADMIN_KEY в скрипте." : "Ошибка таблицы."); }
+    if (!j.ok) { if (j.error === "key") { cfg.key = ""; saveCfg(); banner("key"); return; } banner("Ошибка таблицы."); }
     else { data = j; banner(""); }
   } catch (e) { banner("Не удалось связаться с Google Таблицей. Проверьте адрес скрипта в «Настройках» и интернет."); }
   $("#refresh").textContent = "↻ Обновить"; render();
 }
 function banner(msg) {
-  if (!cfg.api || !cfg.key) {
-    $("#banner").innerHTML = `<div class="banner"><b>Подключите Google Таблицу</b> — туда сохраняются гости и сами приходят их ответы (галочки ✅).<br>Откройте «Настройки» внизу, вставьте адрес скрипта и пароль. ${demo ? "" : '<br><button class="btn sm light" style="margin-top:8px" onclick="startDemo()">Посмотреть, как это выглядит (пример)</button>'}</div>` + (demo ? '<div class="banner demo"><b>Режим примера.</b> Это вымышленные гости, ничего не сохраняется. <button class="btn sm light" onclick="location.reload()">Выйти</button></div>' : "");
+  if (demo) { $("#banner").innerHTML = '<div class="banner demo"><b>Режим примера.</b> Это вымышленные гости, ничего не сохраняется. <button class="btn sm light" onclick="location.reload()">Выйти</button></div>'; return; }
+  if (!cfg.key || msg === "key") {
+    $("#banner").innerHTML = `<div class="card login"><h2>Вход в админку</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="loginKey" type="password" placeholder="Введите пароль" autocomplete="current-password" style="flex:1;min-width:180px;font-size:18px">
+      <button class="btn" id="loginBtn">Войти</button></div>
+      ${msg === "key" ? '<div class="hint" style="color:var(--red)">Пароль не подошёл — проверьте и попробуйте ещё раз (он в файле «ПАРОЛЬ-АДМИНКИ.txt»).</div>' : '<div class="hint">Пароль — в файле «ПАРОЛЬ-АДМИНКИ.txt». Вводится один раз, браузер запомнит.</div>'}
+      <button class="btn sm ghost" style="margin-top:6px;padding-left:0" onclick="startDemo()">Посмотреть пример без входа</button></div>`;
+    const go = () => { cfg.key = $("#loginKey").value.replace(/[\s'"«»]/g, ""); if (!cfg.key) return; saveCfg(); $("#sKey").value = cfg.key; $("#loginBtn").innerHTML = '<span class="spin"></span>'; load(); };
+    $("#loginBtn").onclick = go; $("#loginKey").addEventListener("keydown", e => { if (e.key === "Enter") go(); }); $("#loginKey").focus();
     return;
   }
   $("#banner").innerHTML = msg ? `<div class="banner">${esc(msg)}</div>` : "";
@@ -189,7 +197,7 @@ function statusOf(g) {
 
 // ---------- отрисовка ----------
 function render() {
-  if (!cfg.api || !cfg.key) banner("");
+  if (!cfg.key && !demo && !$("#loginKey")) banner("");
   const gs = data.guests.map(g => ({ ...g, st: statusOf(g) }));
   const answered = gs.filter(g => g.st.a), coming = gs.filter(g => g.st.k === "ok");
   const people = coming.reduce((s, g) => s + g.st.people, 0);
@@ -294,6 +302,7 @@ function startDemo() {
 async function demoApi(b) { return { ok: true }; }
 window.startDemo = startDemo;
 
+const hk = new URLSearchParams(location.hash.slice(1)).get("key"); if (hk) { cfg.key = hk.trim(); saveCfg(); history.replaceState(null, "", location.pathname); $("#sKey").value = cfg.key; }
 load(); setInterval(() => { if (!document.hidden && !demo) load(true); }, 30000);
 </script>
 </body>
